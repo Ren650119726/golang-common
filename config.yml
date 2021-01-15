@@ -1,0 +1,37 @@
+appname: lottery-demo
+release-mode: debug
+#系统配置
+system:
+  bind-ip: 0.0.0.0
+  bind-port: 8888
+  use-https: false
+  cert: private.crt
+  key: private.key
+
+# zap logger configuration
+zap:
+  level: 'info'
+  format: 'console'
+  director: 'logs'
+  link-name: 'latest_log'
+  show-line: true
+  encode-level: 'LowercaseColorLevelEncoder'
+  stacktrace-key: 'stacktrace'
+  log-in-console: true
+  input-file: false #输入到日志文件
+
+# mysql connect configuration
+mysql:
+  host: '127.0.0.1'
+  port: 3306
+  config: 'charset=utf8mb4&parseTime=True&loc=Local'
+  db-name: 'lottery'
+  username: 'root'
+  password: 'root'
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: false
+
+redis:
+  addr: '127.0.0.1:6379'
+  password: ''

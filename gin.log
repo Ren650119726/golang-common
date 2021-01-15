@@ -1,0 +1,27 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /debug/pprof/             --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/cmdline      --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/profile      --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] POST   /debug/pprof/symbol       --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/symbol       --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/trace        --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/allocs       --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/block        --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/goroutine    --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/heap         --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/mutex        --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /debug/pprof/threadcreate --> github.com/gin-contrib/pprof.pprofHandler.func1 (1 handlers)
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (3 handlers)
+[GIN-debug] GET    /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] POST   /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] PUT    /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] PATCH  /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] HEAD   /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] OPTIONS /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] DELETE /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] CONNECT /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] TRACE  /                         --> lottery-demo/src/route.defaultRequest (3 handlers)
+[GIN-debug] Listening and serving HTTP on 0.0.0.0:8888
