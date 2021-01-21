@@ -7,9 +7,9 @@ import (
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"io"
+	"lottery-demo/src/core/common/response"
 	"lottery-demo/src/core/global"
 	middle_ware "lottery-demo/src/middleware"
-	"lottery-demo/src/models/response"
 	"os"
 )
 
