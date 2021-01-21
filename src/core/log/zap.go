@@ -2,11 +2,14 @@ package log
 
 import (
 	"fmt"
+	zaprotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"lottery-demo/src/core/global"
 	"lottery-demo/src/utils"
 	"os"
+	"path"
+	"runtime"
 	"time"
 )
 
@@ -93,8 +96,8 @@ func getEncoder() zapcore.Encoder {
 // getEncoderCore 获取Encoder的zapcore.Core
 func getEncoderCore() (core zapcore.Core) {
 	// 使用file-rotatelogs进行日志分割
-	infoWriter, err := utils.GetWriteSyncer(global.GVA_CONFIG.APPName + "_info_")
-	errorWriter, err := utils.GetWriteSyncer(global.GVA_CONFIG.APPName + "_error_")
+	infoWriter, err := GetWriteSyncer(global.GVA_CONFIG.APPName + "_info_")
+	errorWriter, err := GetWriteSyncer(global.GVA_CONFIG.APPName + "_error_")
 	if err != nil {
 		fmt.Printf("Get Write Syncer Failed err:%v", err.Error())
 		return
@@ -113,9 +116,9 @@ func getEncoderCore() (core zapcore.Core) {
 		)
 	} else {
 		core = zapcore.NewCore(
-			getEncoder(),                                            // 编码器配置
+			getEncoder(), // 编码器配置
 			zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout)), // 打印到控制台
-			level,                                                   // 日志级别
+			level, // 日志级别
 		)
 	}
 	return
@@ -125,4 +128,28 @@ func getEncoderCore() (core zapcore.Core) {
 func CustomTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 	prefix := fmt.Sprintf("[%s]", global.GVA_CONFIG.APPName)
 	enc.AppendString(t.Format(prefix + " 2006/01/02 - 15:04:05.000"))
+}
+
+func GetWriteSyncer(fileName string) (zapcore.WriteSyncer, error) {
+	var fileWriter *zaprotatelogs.RotateLogs
+	var err error
+	if runtime.GOOS != "windows" {
+		fileWriter, err = zaprotatelogs.New(
+			path.Join(global.GVA_CONFIG.Zap.Director, fileName+"%Y-%m-%d.log"),
+			zaprotatelogs.WithLinkName(global.GVA_CONFIG.Zap.LinkName),
+			zaprotatelogs.WithMaxAge(7*24*time.Hour),
+			zaprotatelogs.WithRotationTime(24*time.Hour),
+		)
+	} else {
+		fileWriter, err = zaprotatelogs.New(
+			path.Join(global.GVA_CONFIG.Zap.Director, fileName+"%Y-%m-%d.log"),
+			zaprotatelogs.WithMaxAge(7*24*time.Hour),
+			zaprotatelogs.WithRotationTime(24*time.Hour),
+		)
+	}
+	if global.GVA_CONFIG.Zap.LogInConsole {
+		return zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout), zapcore.AddSync(fileWriter)), err
+	}
+	return zapcore.AddSync(fileWriter), err
+
 }
