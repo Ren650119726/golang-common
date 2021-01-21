@@ -51,6 +51,7 @@ func Zap() (logger *zap.Logger) {
 	if global.GVA_CONFIG.Zap.ShowLine {
 		logger = logger.WithOptions(zap.AddCaller())
 	}
+	Default(logger)
 	logger.Info("log 初始化成功")
 	return logger
 }
